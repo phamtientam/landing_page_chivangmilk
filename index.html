@@ -134,9 +134,30 @@
     text-transform: uppercase;
     font-family: 'DM Sans', sans-serif;
   }
-  .nav-cta:hover {
-    box-shadow: 0 0 30px rgba(212,168,67,0.5);
-    transform: translateY(-1px);
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+  }
+  .nav-hamburger span {
+    width: 20px;
+    height: 2px;
+    background: var(--gold);
+    transition: 0.3s;
+  }
+  .nav-links.mobile {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(10,7,4,0.95);
+    backdrop-filter: blur(24px);
+    flex-direction: column;
+    padding: 20px;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
   }
 
   /* ─── HERO ─── */
@@ -954,6 +975,20 @@
     .hero-rings, .hero-jar { display: none; }
     .footer-top { grid-template-columns: 1fr 1fr; }
     .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+  }
+  @media (max-width: 768px) {
+    .hero { padding: 120px 5% 60px; }
+    .hero-title { font-size: clamp(40px, 8vw, 80px); }
+    .hero-desc { font-size: 16px; }
+    .section-title { font-size: clamp(28px, 6vw, 50px); }
+    .features-grid { grid-template-columns: 1fr; }
+    .feat-card.large { grid-column: span 1; }
+    .products-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    nav { padding: 0 20px; }
+    .nav-cta { display: none; }
   }
   @media (max-width: 600px) {
     .features-grid { grid-template-columns: 1fr; }
@@ -985,7 +1020,12 @@
     </div>
     <div></div>
   </div>
-  <ul class="nav-links">
+  <div class="nav-hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <ul class="nav-links" id="navLinks">
     <li><a href="#features">Đặc điểm</a></li>
     <li><a href="#origin">Nguồn gốc</a></li>
     <li><a href="#products">Sản phẩm</a></li>
@@ -1746,6 +1786,13 @@
       this.style.color = 'var(--black)';
       setTimeout(() => { this.textContent = '+'; this.style.background = ''; this.style.color = ''; }, 1800);
     });
+  });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('mobile');
   });
 </script>
 </body>
