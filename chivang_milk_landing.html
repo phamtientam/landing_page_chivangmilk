@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chị Vàng Milk – Sữa Chua Ba Vì Thuần Khiết</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #072158;
+    --dark: #0f1419;
+    --card: #1a1f24;
+    --gold: #d4a843;
+    --gold-light: #f0c96a;
+    --gold-pale: #f5e8c0;
+    --cream: #f9f3e8;
+    --text: #e8dcc8;
+    --muted: #7a6e5c;
+    --white: #fff;
+    --border: rgba(212,168,67,0.18);
+    --radius: 16px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* CURSOR */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.1s ease, width 0.2s, height 0.2s, opacity 0.2s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid rgba(212,168,67,0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: transform 0.25s ease, width 0.3s, height 0.3s, opacity 0.3s;
+  }
+
+  /* ─── STICKY NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 0 5%;
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10,7,4,0.75);
+    backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .nav-logo-mark {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--black);
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(212,168,67,0.4);
+  }
+  .nav-logo-mark img{
+    width: 100%;
+    height: 100%;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+  }
+  .nav-brand span { font-size: 11px; font-weight: 300; color: var(--muted); display: block; letter-spacing: 0.12em; text-transform: uppercase; font-family: 'DM Sans', sans-serif; }
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-cta {
+    padding: 10px 24px;
+    background: linear-gradient(135deg, var(--gold), #c49030);
+    border: none;
+    border-radius: 40px;
+    color: var(--black);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s;
+    text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .nav-cta:hover {
+    box-shadow: 0 0 30px rgba(212,168,67,0.5);
+    transform: translateY(-1px);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 140px 5% 80px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 70% at 65% 50%, rgba(180,130,30,0.12) 0%, transparent 65%),
+                radial-gradient(ellipse 50% 80% at 10% 80%, rgba(212,168,67,0.06) 0%, transparent 60%),
+                var(--black);
+  }
+
+  /* Grain overlay */
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  /* Orbiting rings */
+  .hero-rings {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 520px; height: 520px;
+    pointer-events: none;
+  }
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(212,168,67,0.15);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    animation: spin linear infinite;
+  }
+  .ring:nth-child(1) { width: 200px; height: 200px; border-color: rgba(212,168,67,0.35); animation-duration: 12s; }
+  .ring:nth-child(2) { width: 310px; height: 310px; animation-duration: 22s; animation-direction: reverse; }
+  .ring:nth-child(3) { width: 420px; height: 420px; animation-duration: 35s; border-style: dashed; }
+  .ring:nth-child(4) { width: 510px; height: 510px; animation-duration: 50s; animation-direction: reverse; border-color: rgba(212,168,67,0.06); }
+  .ring-dot {
+    position: absolute;
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    top: 0; left: 50%;
+    transform: translate(-50%,-50%);
+    box-shadow: 0 0 12px var(--gold);
+  }
+  @keyframes spin {
+    from { transform: translate(-50%,-50%) rotate(0deg); }
+    to   { transform: translate(-50%,-50%) rotate(360deg); }
+  }
+
+  /* Yogurt jar illustration */
+  .hero-jar {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    z-index: 2;
+    animation: floatJar 5s ease-in-out infinite;
+  }
+  @keyframes floatJar {
+    0%,100% { transform: translateY(-50%) translateY(0); }
+    50%      { transform: translateY(-50%) translateY(-18px); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 3;
+    max-width: 600px;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: slideUp 0.7s ease forwards 0.2s;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 7vw, 96px);
+    font-weight: 900;
+    line-height: 0.95;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: slideUp 0.8s ease forwards 0.4s;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+  .hero-title .outline-text {
+    -webkit-text-stroke: 2px rgba(212,168,67,0.5);
+    color: transparent;
+  }
+
+  .hero-desc {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 460px;
+    margin-bottom: 44px;
+    font-weight: 300;
+    opacity: 0;
+    animation: slideUp 0.8s ease forwards 0.6s;
+  }
+  .hero-desc strong { color: var(--text); font-weight: 500; }
+
+  .hero-actions {
+    display: flex; align-items: center; gap: 20px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: slideUp 0.8s ease forwards 0.8s;
+  }
+  .btn-primary {
+    padding: 18px 40px;
+    background: linear-gradient(135deg, var(--gold), #b8891e);
+    border: none;
+    border-radius: 50px;
+    color: var(--black);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(255,255,255,0.15);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover::after { opacity: 1; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(212,168,67,0.4); }
+
+  .btn-ghost {
+    padding: 18px 32px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    color: var(--gold-pale);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); background: rgba(212,168,67,0.05); }
+
+  .hero-stats {
+    display: flex; gap: 48px;
+    margin-top: 64px;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+    animation: slideUp 0.8s ease forwards 1s;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: 0.04em;
+  }
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── MARQUEE ─── */
+  .marquee-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: rgba(212,168,67,0.04);
+    overflow: hidden;
+    padding: 18px 0;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 20s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    display: flex; align-items: center; gap: 20px;
+    padding: 0 40px;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .marquee-item .dot {
+    width: 5px; height: 5px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ─── SECTIONS COMMON ─── */
+  section { padding: 120px 5%; }
+  .section-tag {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .section-tag::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 62px);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 16px;
+    color: var(--cream);
+  }
+  .section-sub {
+    font-size: 16px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 540px;
+  }
+
+  /* ─── FEATURES GRID ─── */
+  .features { background: var(--dark); }
+  .features-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 72px;
+    flex-wrap: wrap; gap: 24px;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .feat-card {
+    background: var(--card);
+    padding: 44px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .feat-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .feat-card:hover { background: #1c1910; }
+  .feat-card:hover::before { opacity: 1; }
+  .feat-icon {
+    width: 56px; height: 56px;
+    background: rgba(212,168,67,0.1);
+    border: 1px solid rgba(212,168,67,0.2);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    margin-bottom: 28px;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .feat-card:hover .feat-icon {
+    background: rgba(212,168,67,0.2);
+    transform: scale(1.05);
+  }
+  .feat-num {
+    position: absolute; top: 28px; right: 28px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: rgba(212,168,67,0.06);
+    line-height: 1;
+    transition: color 0.3s;
+  }
+  .feat-card:hover .feat-num { color: rgba(212,168,67,0.1); }
+  .feat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--cream);
+  }
+  .feat-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--muted);
+    font-weight: 300;
+  }
+  .feat-card.large {
+    grid-column: span 2;
+    display: flex; gap: 40px; align-items: center;
+  }
+  .feat-card.large .feat-body { flex: 1; }
+  .feat-card.large .feat-visual {
+    flex-shrink: 0;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(212,168,67,0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 72px;
+  }
+
+  /* ─── ORIGIN / STORY ─── */
+  .origin {
+    background: var(--black);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .origin-visual {
+    position: relative;
+  }
+  .origin-img-frame {
+    aspect-ratio: 4/5;
+    background: var(--card);
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border);
+  }
+  .origin-img-frame svg { width: 100%; height: 100%; }
+  .origin-badge {
+    position: absolute;
+    bottom: -24px; right: -24px;
+    width: 140px; height: 140px;
+    background: linear-gradient(135deg, var(--gold), #a07020);
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 16px;
+    border: 4px solid var(--black);
+  }
+  .origin-badge .badge-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--black);
+    line-height: 1;
+  }
+  .origin-badge .badge-text {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.7);
+    line-height: 1.3;
+    margin-top: 2px;
+  }
+  .origin-content .section-title { margin-bottom: 24px; }
+  .origin-content p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+  .origin-content p strong { color: var(--text); font-weight: 500; }
+  .origin-tags {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin-top: 32px;
+  }
+  .origin-tag {
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    background: rgba(212,168,67,0.05);
+  }
+
+  /* ─── PRODUCTS ─── */
+  .products { background: var(--dark); }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 64px;
+  }
+  .product-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,168,67,0.3);
+  }
+  .product-img {
+    height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .product-img img{
+    width: 100%;
+    height: 345px;
+  }
+  .product-img::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(22,20,15,0.9));
+  }
+  .product-body { padding: 20px 22px 24px; }
+  .product-badge {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .product-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .product-footer {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .product-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+  }
+  .product-price span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .product-add {
+    width: 36px; height: 36px;
+    background: rgba(212,168,67,0.12);
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    font-size: 20px;
+    color: var(--gold);
+    font-weight: 300;
+    line-height: 1;
+  }
+  .product-add:hover { background: var(--gold); color: var(--black); transform: scale(1.1); }
+
+  /* ─── PRICING ─── */
+  .pricing { background: var(--black); }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-top: 64px;
+    align-items: start;
+  }
+  .price-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 44px 36px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .price-card:hover { transform: translateY(-4px); }
+  .price-card.featured {
+    background: linear-gradient(160deg, #1e1a10, #16140f);
+    border-color: rgba(212,168,67,0.5);
+    transform: scale(1.04);
+    box-shadow: 0 0 60px rgba(212,168,67,0.15), 0 0 0 1px rgba(212,168,67,0.2);
+  }
+  .price-card.featured:hover { transform: scale(1.04) translateY(-4px); }
+  .popular-badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--gold), #c49030);
+    color: var(--black);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .price-tier {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .price-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 10px;
+  }
+  .price-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 32px;
+    font-weight: 300;
+  }
+  .price-amount {
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .price-big {
+    font-size: 30px;
+    color: var(--gold);
+  }
+  .price-unit {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .price-features {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 14px;
+    margin-bottom: 36px;
+  }
+  .price-features li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  .price-features li::before {
+    content: '✓';
+    color: var(--gold);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .price-features li.muted { color: var(--muted); }
+  .price-features li.muted::before { content: '—'; color: var(--muted); font-weight: 400; }
+
+  .price-btn {
+    width: 100%;
+    padding: 16px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: 'DM Sans', sans-serif;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+  }
+  .price-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .price-btn.gold {
+    background: linear-gradient(135deg, var(--gold), #b8891e);
+    color: var(--black);
+    border-color: transparent;
+  }
+  .price-btn.gold:hover { box-shadow: 0 8px 30px rgba(212,168,67,0.4); transform: translateY(-1px); }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials { background: var(--dark); }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 64px;
+  }
+  .testi-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 32px;
+    position: relative;
+  }
+  .testi-stars {
+    color: var(--gold);
+    font-size: 14px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+  }
+  .testi-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--text);
+    margin-bottom: 28px;
+  }
+  .testi-author {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .testi-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), #8a5c10);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    font-weight: 700;
+    color: var(--black);
+    font-family: 'Playfair Display', serif;
+  }
+  .testi-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--cream);
+  }
+  .testi-loc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ─── CTA SECTION ─── */
+  .cta-section {
+    background: var(--black);
+    text-align: center;
+    padding: 140px 5%;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(212,168,67,0.1) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .cta-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 10vw, 140px);
+    line-height: 0.9;
+    letter-spacing: 0.04em;
+    color: var(--cream);
+    position: relative; z-index: 1;
+    margin-bottom: 32px;
+  }
+  .cta-big .gold { color: var(--gold); }
+  .cta-sub {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+    font-weight: 300;
+    position: relative; z-index: 1;
+  }
+  .cta-actions {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    position: relative; z-index: 1;
+    flex-wrap: wrap;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 80px 5% 40px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 64px;
+  }
+  .footer-brand .nav-logo { margin-bottom: 20px; }
+  .footer-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+  .footer-col h4 {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-links a {
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-weight: 300;
+  }
+  .footer-links a:hover { color: var(--gold-light); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-copy {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+  .footer-socials {
+    display: flex; gap: 12px;
+  }
+  .social-btn {
+    width: 36px; height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 960px) {
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .feat-card.large { grid-column: span 2; flex-direction: column; }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .price-card.featured { transform: scale(1); }
+    .testi-grid { grid-template-columns: 1fr 1fr; }
+    .origin { grid-template-columns: 1fr; }
+    .hero-rings, .hero-jar { display: none; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 600px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .feat-card.large { grid-column: span 1; }
+    .products-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    nav { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ─── STICKY NAV ─── -->
+<nav id="mainNav">
+  <div class="nav-logo">
+    <div class="nav-logo-mark">
+      <img src="./img_web/logo-c.png"/>
+    </div>
+    <div class="nav-brand">
+      Chị Vàng Milk
+      <span style="margin: 4px 0px;">Ba Vì · Hà Nội</span>
+    </div>
+    <div class="nav-ocop">
+      <img src="./img_web/ocop.png" alt="OCOP 4 Sao" style="width: 100px; height: 35px;"/>
+    </div>
+    <div></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#features">Đặc điểm</a></li>
+    <li><a href="#origin">Nguồn gốc</a></li>
+    <li><a href="#products">Sản phẩm</a></li>
+    <li><a href="#pricing">Bảng giá</a></li>
+  </ul>
+  <button class="nav-cta">Đặt hàng ngay</button>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Orbiting rings -->
+  <div class="hero-rings">
+    <div class="ring"><div class="ring-dot"></div></div>
+    <div class="ring"><div class="ring-dot"></div></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+  </div>
+
+  <!-- Floating Jar SVG -->
+  <div class="hero-jar">
+    <svg viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="jarGlow" cx="50%" cy="40%" r="55%">
+          <stop offset="0%" stop-color="#f0c96a" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="jarBody" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#2a2418"/>
+          <stop offset="50%" stop-color="#1e1a10"/>
+          <stop offset="100%" stop-color="#151209"/>
+        </linearGradient>
+        <linearGradient id="jarLid" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f0c96a"/>
+          <stop offset="100%" stop-color="#b8891e"/>
+        </linearGradient>
+        <linearGradient id="yogurtTop" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#f5ead8"/>
+          <stop offset="100%" stop-color="#e8d5b0"/>
+        </linearGradient>
+      </defs>
+      <!-- Glow -->
+      <ellipse cx="150" cy="200" rx="140" ry="170" fill="url(#jarGlow)"/>
+      <!-- Jar shadow -->
+      <ellipse cx="150" cy="360" rx="90" ry="16" fill="rgba(0,0,0,0.4)"/>
+      <!-- Jar body -->
+      <path d="M60 120 Q55 340 150 350 Q245 340 240 120 Z" fill="url(#jarBody)" stroke="rgba(212,168,67,0.3)" stroke-width="1.5"/>
+      <!-- Yogurt surface -->
+      <ellipse cx="150" cy="140" rx="80" ry="22" fill="url(#yogurtTop)" opacity="0.9"/>
+      <!-- Yogurt swirl -->
+      <path d="M110 138 Q150 130 190 138" stroke="rgba(212,168,67,0.6)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M120 143 Q150 137 180 143" stroke="rgba(212,168,67,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <!-- Label -->
+      <rect x="80" y="175" width="140" height="100" rx="10" fill="rgba(212,168,67,0.08)" stroke="rgba(212,168,67,0.25)" stroke-width="1"/>
+      <text x="150" y="208" text-anchor="middle" font-family="'Playfair Display', serif" font-size="13" font-style="italic" fill="#d4a843" opacity="0.9">Chị Vàng</text>
+      <text x="150" y="228" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="17" fill="#f0c96a" letter-spacing="3">MILK</text>
+      <text x="150" y="246" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="9" fill="rgba(212,168,67,0.6)" letter-spacing="1.5">SỮA CHUA BA VÌ</text>
+      <line x1="95" y1="258" x2="205" y2="258" stroke="rgba(212,168,67,0.2)" stroke-width="0.8"/>
+      <text x="150" y="272" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="8" fill="rgba(212,168,67,0.4)" letter-spacing="1">THUẦN KHIẾT • TỰ NHIÊN</text>
+      <!-- Lid -->
+      <ellipse cx="150" cy="118" rx="90" ry="22" fill="url(#jarLid)"/>
+      <ellipse cx="150" cy="108" rx="70" ry="16" fill="#c49030"/>
+      <ellipse cx="150" cy="104" rx="50" ry="10" fill="#d4a843"/>
+      <text x="150" y="109" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="12" fill="rgba(0,0,0,0.6)" letter-spacing="2">BA VÌ</text>
+      <!-- Shine -->
+      <ellipse cx="120" cy="155" rx="20" ry="60" fill="rgba(255,255,255,0.03)" transform="rotate(-15 120 155)"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Thương hiệu cao cấp · Sữa Chị Vàng Ba Vì</div>
+    <h1 class="hero-title">
+      Vị Ngon
+      <em>Thuần Khiết</em>
+      <span class="outline-text">Từ Núi Tản</span>
+    </h1>
+    <p class="hero-desc">
+      Sữa chua Ba Vì từ <strong>Chị Vàng Milk</strong> — Sữa chua Ba Vì từ Chị Vàng Milk được làm từ sữa bò tươi nguyên chất, thu hoạch mỗi sáng sớm trên những đồng cỏ xanh mướt Ba Vì. Sản phẩm không chứa chất bảo quản, không hương liệu nhân tạo, giữ trọn hương vị tự nhiên thuần khiết. Kết hợp giữa quy trình thủ công tỉ mỉ và dây chuyền sản xuất hiện đại, khép kín, đảm bảo vệ sinh an toàn thực phẩm tuyệt đối trong từng hũ sữa chua.
+    </p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">Khám phá sản phẩm</a>
+      <a href="#origin" class="btn-ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        Câu chuyện của chúng tôi
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Năm kinh nghiệm</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Sữa tươi nguyên chất</div>
+      </div>
+      <div>
+        <div class="stat-num">50K+</div>
+        <div class="stat-label">Khách hàng tin yêu</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MARQUEE ─── -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<!-- ─── FEATURES ─── -->
+<section class="features" id="features">
+  <div class="features-header reveal">
+    <div>
+      <div class="section-tag">Tại sao chọn chúng tôi</div>
+      <h2 class="section-title">Chất lượng là nguyên tắc<br>không phải lựa chọn</h2>
+    </div>
+    <p class="section-sub">Mỗi hũ sữa chua là cam kết của chúng tôi về sự thuần khiết, hương vị và dinh dưỡng vượt trội.</p>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feat-card large">
+      <div class="feat-body">
+        <div class="feat-icon">🏔️</div>
+        <div class="feat-num">01</div>
+        <div class="feat-title">Nguồn sữa Ba Vì Thuần Khiết</div>
+        <div class="feat-desc">Đàn bò được chăn thả tự do trên đồng cỏ Ba Vì ở độ cao 400m, hít thở không khí trong lành, uống nước suối tự nhiên — cho ra nguồn sữa giàu dưỡng chất nhất.</div>
+      </div>
+      <div class="feat-visual">🐄</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🧪</div>
+      <div class="feat-num">02</div>
+      <div class="feat-title">Công nghệ lên men truyền thống</div>
+      <div class="feat-desc">Quy trình lên men 8 tiếng ở nhiệt độ lý tưởng, giữ nguyên lợi khuẩn và hương vị tự nhiên.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🌿</div>
+      <div class="feat-num">03</div>
+      <div class="feat-title">Hoàn toàn Tự Nhiên</div>
+      <div class="feat-desc">Không chất bảo quản, không màu nhân tạo, không hương liệu tổng hợp. Chỉ có sữa tươi và men vi sinh tự nhiên.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">❄️</div>
+      <div class="feat-num">04</div>
+      <div class="feat-title">Chuỗi lạnh toàn diện</div>
+      <div class="feat-desc">Từ trang trại đến tay bạn — mọi khâu đều được kiểm soát nhiệt độ nghiêm ngặt, đảm bảo độ tươi ngon tối đa.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🏆</div>
+      <div class="feat-num">05</div>
+      <div class="feat-title">Đạt chuẩn VSATTP</div>
+      <div class="feat-desc">Được cấp phép và kiểm định bởi Cục An toàn thực phẩm Bộ Y tế. Chất lượng được xác nhận qua hơn 30 chỉ tiêu.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📦</div>
+      <div class="feat-num">06</div>
+      <div class="feat-title">Giao hàng nhanh toàn quốc</div>
+      <div class="feat-desc">Đặt trước 10h sáng, nhận hàng trong ngày tại Hà Nội. Toàn quốc trong vòng 24–48 giờ.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ORIGIN ─── -->
+<section class="origin" id="origin">
+  <div class="origin-visual reveal">
+    <div class="origin-img-frame">
+      <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="skyGrad" cx="50%" cy="30%" r="60%">
+            <stop offset="0%" stop-color="#1a1608"/>
+            <stop offset="100%" stop-color="#0a0704"/>
+          </radialGradient>
+          <linearGradient id="hillGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#1f2a10"/>
+            <stop offset="100%" stop-color="#0f1508"/>
+          </linearGradient>
+          <linearGradient id="hill2Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2a3a18"/>
+            <stop offset="100%" stop-color="#1a2410"/>
+          </linearGradient>
+        </defs>
+        <!-- Sky -->
+        <rect width="400" height="500" fill="url(#skyGrad)"/>
+        <!-- Stars -->
+        <circle cx="50" cy="40" r="1.5" fill="rgba(212,168,67,0.6)"/>
+        <circle cx="120" cy="20" r="1" fill="rgba(212,168,67,0.4)"/>
+        <circle cx="200" cy="55" r="1.2" fill="rgba(212,168,67,0.5)"/>
+        <circle cx="300" cy="30" r="1" fill="rgba(212,168,67,0.3)"/>
+        <circle cx="360" cy="60" r="1.5" fill="rgba(212,168,67,0.5)"/>
+        <circle cx="80" cy="80" r="0.8" fill="rgba(212,168,67,0.3)"/>
+        <circle cx="250" cy="25" r="0.8" fill="rgba(212,168,67,0.4)"/>
+        <!-- Moon glow -->
+        <circle cx="320" cy="80" r="35" fill="rgba(212,168,67,0.08)"/>
+        <circle cx="320" cy="80" r="22" fill="rgba(212,168,67,0.12)"/>
+        <circle cx="320" cy="80" r="14" fill="rgba(212,168,67,0.2)"/>
+        <!-- Mountains background -->
+        <path d="M0 320 L80 200 L160 260 L240 160 L320 220 L400 180 L400 500 L0 500 Z" fill="url(#hillGrad)"/>
+        <!-- Mountains foreground -->
+        <path d="M0 380 L60 280 L120 340 L200 250 L280 310 L340 270 L400 300 L400 500 L0 500 Z" fill="url(#hill2Grad)"/>
+        <!-- Ground -->
+        <ellipse cx="200" cy="460" rx="220" ry="60" fill="rgba(42,58,24,0.8)"/>
+        <!-- Cow silhouette -->
+        <g transform="translate(100, 350)">
+          <ellipse cx="50" cy="30" rx="40" ry="22" fill="rgba(0,0,0,0.7)"/>
+          <circle cx="80" cy="18" r="14" fill="rgba(0,0,0,0.7)"/>
+          <line x1="20" y1="48" x2="16" y2="68" stroke="rgba(0,0,0,0.7)" stroke-width="5" stroke-linecap="round"/>
+          <line x1="36" y1="50" x2="32" y2="70" stroke="rgba(0,0,0,0.7)" stroke-width="5" stroke-linecap="round"/>
+          <line x1="64" y1="50" x2="60" y2="70" stroke="rgba(0,0,0,0.7)" stroke-width="5" stroke-linecap="round"/>
+          <line x1="80" y1="48" x2="76" y2="68" stroke="rgba(0,0,0,0.7)" stroke-width="5" stroke-linecap="round"/>
+          <!-- Horn -->
+          <path d="M78 10 Q88 0 92 8" stroke="rgba(0,0,0,0.6)" stroke-width="3" fill="none"/>
+          <!-- Tail -->
+          <path d="M10 28 Q0 20 4 35" stroke="rgba(0,0,0,0.6)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- Cow 2 smaller -->
+        <g transform="translate(230, 380) scale(0.65)">
+          <ellipse cx="50" cy="30" rx="40" ry="22" fill="rgba(0,0,0,0.5)"/>
+          <circle cx="80" cy="18" r="14" fill="rgba(0,0,0,0.5)"/>
+          <line x1="20" y1="48" x2="16" y2="68" stroke="rgba(0,0,0,0.5)" stroke-width="5" stroke-linecap="round"/>
+          <line x1="36" y1="50" x2="32" y2="70" stroke="rgba(0,0,0,0.5)" stroke-width="5" stroke-linecap="round"/>
+          <line x1="64" y1="50" x2="60" y2="70" stroke="rgba(0,0,0,0.5)" stroke-width="5" stroke-linecap="round"/>
+          <line x1="80" y1="48" x2="76" y2="68" stroke="rgba(0,0,0,0.5)" stroke-width="5" stroke-linecap="round"/>
+        </g>
+        <!-- Gold accent line -->
+        <line x1="0" y1="499" x2="400" y2="499" stroke="rgba(212,168,67,0.3)" stroke-width="2"/>
+        <!-- Text overlay -->
+        <text x="200" y="460" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="22" fill="rgba(212,168,67,0.15)" letter-spacing="6">BA VÌ · HÀ NỘI</text>
+      </svg>
+    </div>
+    <div class="origin-badge">
+      <div class="badge-num">20</div>
+      <div class="badge-text">Năm<br>Kinh Nghiệm</div>
+    </div>
+  </div>
+  <div class="origin-content reveal">
+    <div class="section-tag">Câu chuyện của chúng tôi</div>
+    <h2 class="section-title">Từ Đồng Cỏ<br>Ba Vì Đến<br>Bàn Ăn Nhà Bạn</h2>
+    <p>Chị Vàng Milk bắt đầu từ một trang trại nhỏ trên núi Ba Vì năm 2006. <strong>Bà Phạm Thị Thanh Huyền</strong> — người sáng lập — đã dành cả đời gắn bó với đàn bò và kỹ thuật làm sữa chua truyền thống của gia đình.</p>
+    <p>Qua 20 năm, chúng tôi <strong>không thay đổi công thức</strong> — chỉ cải tiến quy trình để mang đến sản phẩm thuần khiết nhất. Sữa được thu hoạch lúc 4 giờ sáng, chế biến ngay trong ngày.</p>
+    <p>Mỗi hũ sữa chua là tình yêu của người phụ nữ Ba Vì đối với vùng đất, đàn bò và những người khách hàng tin tưởng.</p>
+    <div class="origin-tags">
+      <span class="origin-tag">🏔️ Ba Vì · Hà Nội</span>
+      <span class="origin-tag">🐄 Bò chăn thả tự do</span>
+      <span class="origin-tag">🌿 Organic</span>
+      <span class="origin-tag">❤️ Gia truyền</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRODUCTS ─── -->
+<section class="products" id="products">
+  <div style="text-align:center" class="reveal">
+    <div class="section-tag" style="justify-content:center">Dòng sản phẩm</div>
+    <h2 class="section-title">Sản Phẩm Nổi Bật</h2>
+    <p class="section-sub" style="margin: 0 auto">Từ hũ sữa chua cổ điển đến các dòng hương vị đặc biệt — mỗi sản phẩm đều mang dấu ấn Ba Vì.</p>
+  </div>
+  <div class="products-grid reveal">
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1e1a10, #2a2418);">
+        <img src="https://scontent.fhan22-1.fna.fbcdn.net/v/t39.30808-6/651279063_1526203565996118_5801304001350258976_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=7b2446&_nc_ohc=UUc2d-mJ1wkQ7kNvwEW3Kdm&_nc_oc=AdoVU3QxfaxPDWcgXXkxNWScdD8BP2J7QMgDgMIJSeYSFrLXiSDz4F56X-bLF2hcWAM&_nc_zt=23&_nc_ht=scontent.fhan22-1.fna&_nc_gid=0_rEnhUxllEePPu3Q6tf8g&_nc_ss=7a32e&oh=00_AfxCiGZeAqXGzecP03ofAYdTiIB6ERgPSxsZpaAs62xhow&oe=69C85AC1" />
+      </div>
+      <!-- Sua chua -->
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Sữa Chua Dê</div>
+        <div class="product-desc">Sữa chua dê có hương vị đặc trưng, thơm nhẹ và dễ tiêu hóa. Kết cấu mịn, vị chua thanh tự nhiên mang lại cảm giác nhẹ bụng, phù hợp với những người quan tâm đến sức khỏe. Đây là lựa chọn khác biệt so với sữa chua thông thường, vừa bổ dưỡng vừa mang lại trải nghiệm mới lạ.</div>
+        <div class="product-footer">
+          <div class="product-price">12 Hộp <span>/ Thùng</span></span></div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a100a, #2a1810);">
+        <img src="https://scontent.fhan22-1.fna.fbcdn.net/v/t39.30808-6/650793929_1526203759329432_806430408945478915_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=7b2446&_nc_ohc=aKnaQ6vl1TIQ7kNvwFW5vU-&_nc_oc=Adr4e9zs8OLETIAICZThYk1CrxdqMdxnlX1v9GiWVVoeuOf9efNVz7lNwn1VTUALxIU&_nc_zt=23&_nc_ht=scontent.fhan22-1.fna&_nc_gid=kDiqxY_rdpcIASDAUodgsQ&_nc_ss=7a32e&oh=00_Afxy4aN68De0E9636Z9ujME3i_Tbl6D-RYTvf2w1x1VE2A&oe=69C86BF3" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Sữa chua phô mai</div>
+        <div class="product-desc">Sữa chua phô mai là sự hòa quyện hoàn hảo giữa vị béo ngậy của phô mai và độ chua nhẹ của sữa chua. Kết cấu mịn, sánh và đậm vị mang lại cảm giác “tan trong miệng”, khiến ai thưởng thức cũng khó quên. Đây là lựa chọn tuyệt vời cho những người yêu thích vị béo, muốn tìm một món tráng miệng vừa ngon vừa giàu năng lượng.</div>
+        <div class="product-footer">
+          <div class="product-price">12 Hộp <span>/ Thùng</span></span></div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #0f1a12, #142018);">
+        <img src="https://scontent.fhan22-1.fna.fbcdn.net/v/t39.30808-6/651184016_1526203769329431_4259555171075431625_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=7b2446&_nc_ohc=B3l_UQra3ZMQ7kNvwGNvPQP&_nc_oc=AdoQ_4Komtpb7CmPUymezVzasIF50mI_ZQ2VEGlVAVANY54hJRxCXedAjWtsvD2GLoc&_nc_zt=23&_nc_ht=scontent.fhan22-1.fna&_nc_gid=10NVsonZ10vISvbuk615rw&_nc_ss=7a32e&oh=00_AfzC5pNuOmFRrY2hqJ7eikyV4GSYS49mklOHTTBG43xD-A&oe=69C872C2" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Sữa chua nha đam</div>
+        <div class="product-desc">Sữa chua nha đam mang đến cảm giác thanh mát với từng miếng nha đam giòn nhẹ, mọng nước. Vị chua dịu của sữa kết hợp cùng độ tươi mát tự nhiên giúp giải nhiệt hiệu quả, đặc biệt trong mùa hè oi bức. Mỗi thìa là một trải nghiệm sảng khoái, nhẹ nhàng, phù hợp cho cả người lớn và trẻ nhỏ.</div>
+        <div class="product-footer">
+          <div class="product-price">12 Hộp <span>/ Thùng</span></div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a1408, #24200c);">
+        <img src="https://scontent.fhan22-1.fna.fbcdn.net/v/t39.30808-6/650235470_1526203505996124_5120074266455141655_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=7b2446&_nc_ohc=7v5tlnY723sQ7kNvwFN1_g8&_nc_oc=AdpOd-VIE3ypw_EuBg8fafzdI_0L0ZGIIhT-HK5isVCxMqJATTf8WytDo9Gb8shpndA&_nc_zt=23&_nc_ht=scontent.fhan22-1.fna&_nc_gid=SvHuBbX9HLslkWzthDPHIQ&_nc_ss=7a32e&oh=00_Afw8P3yFfgRrkpbCSvqmJDzHWBJxqK4bQITod-LNUZKV3g&oe=69C8687A" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Sữa chua nếp cẩm</div>
+        <div class="product-desc">Sự kết hợp hài hòa giữa vị chua dịu của sữa chua và vị ngọt bùi, dẻo thơm của nếp cẩm tạo nên món tráng miệng vừa ngon miệng vừa no lâu. Từng hạt nếp mềm quyện cùng lớp sữa chua mát lạnh mang lại cảm giác sảng khoái, đặc biệt phù hợp trong những ngày nắng nóng. Đây là lựa chọn lý tưởng cho những ai thích hương vị truyền thống nhưng vẫn muốn sự mới mẻ.</div>
+        <div class="product-footer">
+          <div class="product-price">12 Hộp <span>/ Thùng</span></span></div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a1408, #24200c);">
+        <img src="https://scontent.fhan22-1.fna.fbcdn.net/v/t39.30808-6/650741117_1526203552662786_3935255202103726190_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=7b2446&_nc_ohc=4fIvG2HEOwUQ7kNvwEnjknK&_nc_oc=AdqxScSo93CiBC8dPsjuQr3G4lvn7ojYK9a-ofDPFhweWVfm-0osdh-OmN-5pJfjqSU&_nc_zt=23&_nc_ht=scontent.fhan22-1.fna&_nc_gid=_ZSz2fQEJegjEByZS13CKA&_nc_ss=7a32e&oh=00_AfwwfkEpQLc1401vBalDkXRI3cxTjdfqEJ-QT1wamCP1TQ&oe=69C84FF5" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Sữa chua dừa non</div>
+        <div class="product-desc">Sữa chua dừa non mang đến hương vị nhiệt đới tươi mát với từng miếng dừa giòn nhẹ, thơm béo tự nhiên. Sự kết hợp giữa vị chua dịu và vị ngọt thanh của dừa tạo nên món ăn giải nhiệt cực kỳ dễ chịu. Đây là lựa chọn hoàn hảo cho những ngày hè, khi bạn cần một món vừa ngon vừa mát.</div>
+        <div class="product-footer">
+          <div class="product-price">12 Hộp <span>/ Thùng</span></div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a1408, #24200c);">
+        <img src="https://scontent.fhan22-1.fna.fbcdn.net/v/t39.30808-6/649494869_1526203675996107_6750532512604971730_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=7b2446&_nc_ohc=WV6_f53_XgoQ7kNvwG0XpUH&_nc_oc=AdoL0_cx-dAwjviBpMBES01Haoh6N4RGOdJBPSpHYeb-zY_ze1rqv_oEYh3gEJ_4CgA&_nc_zt=23&_nc_ht=scontent.fhan22-1.fna&_nc_gid=d_r9GV3eKHw8bbN1yiE4sw&_nc_ss=7a32e&oh=00_Afwpd3XSVP6DqKIDX0m-5ieLdWsMbOOKSbAzzUPtKcCTVA&oe=69C87B85" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Sữa chua trân châu</div>
+        <div class="product-desc">Sữa chua trân châu là sự kết hợp thú vị giữa sữa chua mát lạnh và trân châu dai mềm. Từng viên trân châu ngọt nhẹ hòa cùng vị chua thanh tạo nên trải nghiệm vừa nhai vui miệng, vừa giải nhiệt hiệu quả. Món này đặc biệt phù hợp với giới trẻ, mang lại cảm giác mới lạ và hấp dẫn ngay từ lần thử đầu tiên.</div>
+        <div class="product-footer">
+          <div class="product-price">12 Hộp <span>/ Thùng</span></div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a1408, #24200c);">
+        <img src="https://scontent.fhan22-1.fna.fbcdn.net/v/t39.30808-6/571119724_1406763921273417_8831349242614974946_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=107&ccb=1-7&_nc_sid=7b2446&_nc_ohc=jeeqNxGhTigQ7kNvwGpGvZB&_nc_oc=AdqMzSaF7wNcAHHXRBDem5KlytKe1LVPpg9n9J6LNeD3W7OZttlt05WYL9EnR4aW8Ig&_nc_zt=23&_nc_ht=scontent.fhan22-1.fna&_nc_gid=czuJDM8-kHRNwQLi1uu_dQ&_nc_ss=7a32e&oh=00_AfzkZcDoBbXDJxvQG0A_YMe2dzhjaiIZMKZqBEyY6OvoUw&oe=69C8680B" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Sữa chua uống hoa quả</div>
+        <div class="product-desc">Sữa chua uống hoa quả là sự kết hợp hoàn hảo giữa vị chua dịu của sữa chua và hương vị tươi mát từ trái cây. Dạng uống tiện lợi, mát lạnh tức thì, giúp giải nhiệt nhanh chóng trong những ngày nắng nóng. Mỗi ngụm mang lại cảm giác sảng khoái, dễ uống và phù hợp cho mọi lứa tuổi.</div>
+        <div class="product-footer">
+          <div class="product-price">12 Chai <span>/ Lốc</span></div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a1408, #24200c);">
+        <img src="https://scontent.fhan22-1.fna.fbcdn.net/v/t39.30808-6/650513954_1528081659141642_8816929327574477560_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=7b2446&_nc_ohc=XgZ3C3sgIPcQ7kNvwFtkbKA&_nc_oc=AdobJKZNrm3OMp84yPOb5teqAWUtMbFKhOxyDeXDaYmPLmsuGXcSSuC8krztYNuxWj4&_nc_zt=23&_nc_ht=scontent.fhan22-1.fna&_nc_gid=jxtApaBCWm6G0Gyc3hMwQQ&_nc_ss=7a32e&oh=00_Afzt32BJNelJy0pjyJZw8FJ3MyWjM0IXqv0_-RcxVjTThQ&oe=69C87BFE" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Sữa tuơi dê</div>
+        <div class="product-desc">Sữa tươi dê có vị thơm đặc trưng, béo nhẹ nhưng không ngấy, dễ uống và giàu dinh dưỡng. Nhờ khả năng hấp thu tốt, đây là sản phẩm phù hợp cho cả trẻ em và người lớn. Một ly sữa tươi dê mỗi ngày không chỉ giúp bổ sung năng lượng mà còn mang lại cảm giác khỏe khoắn, nhẹ nhàng.</div>
+        <div class="product-footer">
+          <div class="product-price">900ml <span>/ Chai</span></div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Banh Sua -->
+     <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a1408, #24200c);">
+        <img src="./img_web/bs_scl.jpg" />
+      </div>
+     <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Bánh sữa socola</div>
+        <div class="product-desc">Bánh sữa socola của Chị Vàng Milk Ba Vì là sự kết hợp hài hòa giữa vị sữa thơm béo và socola đậm đà. Từng miếng bánh mềm mịn, tan nhẹ trong miệng, mang đến cảm giác ngọt ngào nhưng không ngấy. Hương socola quyện cùng vị sữa tạo nên trải nghiệm hấp dẫn, đặc biệt phù hợp với trẻ nhỏ và những ai yêu thích vị ngọt dịu.</div>
+        <div class="product-footer">
+          <div class="product-price">110g/300g/500g/1kg</div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a100a, #2a1810);">
+        <img src="./img_web/bs_non_2.jpg" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Bánh sữa non</div>
+        <div class="product-desc">Bánh sữa non mang hương vị nguyên bản của sữa tươi, nhẹ nhàng, tinh khiết và dễ ăn. Kết cấu mềm mịn, vị ngọt thanh tự nhiên giúp sản phẩm phù hợp với cả trẻ em và người lớn. Không quá đậm vị, bánh sữa non tạo cảm giác gần gũi, giống như thưởng thức vị sữa tươi Ba Vì trong từng miếng bánh.</div>
+        <div class="product-footer">
+          <div class="product-price">110g/300g/500g/1kg</div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #0f1a12, #142018);">
+        <img src="./img_web/bs_vi_xua.jpg" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Bánh sữa vị xưa</div>
+        <div class="product-desc">Bánh sữa vị xưa gợi nhớ hương vị tuổi thơ với vị ngọt dịu, béo nhẹ và mùi thơm đặc trưng của sữa truyền thống. Mỗi miếng bánh mang đến cảm giác thân quen, giản dị nhưng khó quên. Đây là lựa chọn dành cho những ai yêu thích hương vị cổ điển, mộc mạc nhưng vẫn đầy cuốn hút.</div>
+        <div class="product-footer">
+          <div class="product-price">110g/300g/500g/1kg</div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a1408, #24200c);">
+        <img src="./img_web/bs_pho_mai.jpg" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Bánh sữa phô mai</div>
+        <div class="product-desc">Bánh sữa phô mai nổi bật với vị béo ngậy đặc trưng, mềm mịn và đậm đà. Lớp bánh dẻo nhẹ, tan trong miệng, để lại hậu vị thơm bùi của phô mai hòa quyện cùng sữa tươi Ba Vì. Đây là lựa chọn hoàn hảo cho những ai yêu thích vị béo và muốn tìm một món ăn vặt vừa ngon vừa giàu năng lượng.</div>
+        <div class="product-footer">
+          <div class="product-price">110g/300g/500g/1kg</div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a1408, #24200c);">
+        <img src="./img_web/bs_matcha_3.jpg" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Bánh sữa matcha</div>
+        <div class="product-desc">Sữa chua dừa non mang đến hương vị nhiệt đới tươi mát với từng miếng dừa giòn nhẹ, thơm béo tự nhiên. Sự kết hợp giữa vị chua dịu và vị ngọt thanh của dừa tạo nên món ăn giải nhiệt cực kỳ dễ chịu. Đây là lựa chọn hoàn hảo cho những ngày hè, khi bạn cần một món vừa ngon vừa mát.</div>
+        <div class="product-footer">
+          <div class="product-price">110g/300g/500g/1kg</div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a1408, #24200c);">
+        <img src="./img_web/bs_dau_2.jpg" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Bánh sữa dâu tây</div>
+        <div class="product-desc">Bánh sữa vị dâu tây mang hương thơm tươi mát, vị chua nhẹ đặc trưng của dâu kết hợp cùng độ béo nhẹ của sữa. Màu sắc bắt mắt, vị thanh dễ ăn giúp sản phẩm trở thành món ăn vặt lý tưởng cho mọi lứa tuổi. Mỗi miếng bánh là sự cân bằng giữa ngọt – chua – béo, mang lại cảm giác mới lạ và dễ chịu.</div>
+        <div class="product-footer">
+          <div class="product-price">110g/300g/500g/1kg</div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a1408, #24200c);">
+        <img src="./img_web/bs_mix.jpg" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Bánh sữa mix vị</div>
+        <div class="product-desc">Bánh sữa mix vị là sự kết hợp đa dạng giữa nhiều hương vị trong cùng một hộp, mang đến trải nghiệm phong phú và không nhàm chán. Từ socola, dâu tây đến phô mai, mỗi miếng bánh là một bất ngờ thú vị. Phù hợp để thưởng thức cùng gia đình hoặc làm quà tặng hấp dẫn.</div>
+        <div class="product-footer">
+          <div class="product-price">110g/300g/500g/1kg</div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a1408, #24200c);">
+        <img src="./img_web/bs_milk_cake.jpg" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Bánh sữa milky cake</div>
+        <div class="product-desc">Bánh sữa Milky Cake của Chị Vàng Milk Ba Vì mang phong cách hiện đại với vị sữa đậm đà, mềm mịn và dễ ăn. Thiết kế đẹp mắt, hương vị hài hòa giúp sản phẩm phù hợp làm quà tặng hoặc thưởng thức hàng ngày. Đây là lựa chọn lý tưởng cho những ai yêu thích sự tinh tế và tiện lợi.</div>
+        <div class="product-footer">
+          <div class="product-price">110g/300g/500g/1kg</div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a1408, #24200c);">
+        <img src="./img_web/sua_chua_say.jpg" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Sữa chua sấy thăng hoa vị truyền thống</div>
+        <div class="product-desc">Sữa chua sấy thăng hoa vị truyền thống giữ trọn hương vị chua dịu và thơm béo của sữa chua Ba Vì. Công nghệ sấy hiện đại giúp sản phẩm giòn xốp, tan nhanh trong miệng nhưng vẫn giữ được dinh dưỡng. Đây là món ăn vặt tiện lợi, vừa ngon vừa lạ, phù hợp mang theo mọi lúc mọi nơi.</div>
+        <div class="product-footer">
+          <div class="product-price">110g/300g/500g/1kg</div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a1408, #24200c);">
+        <img src="./img_web/sua_chua_say_nc.jpg" />
+      </div>
+      <div class="product-body">
+        <div class="product-badge">Sản phẩm nổi bật</div>
+        <div class="product-name">Sữa chua sấy thăng hoa vị nếp cẩm</div>
+        <div class="product-desc">Sữa chua sấy thăng hoa vị nếp cẩm là sự kết hợp độc đáo giữa vị chua nhẹ của sữa chua và vị bùi ngọt của nếp cẩm. Từng miếng giòn tan, thơm ngon, mang đến trải nghiệm vừa quen vừa mới. Sản phẩm phù hợp với những ai muốn thử một hương vị khác biệt nhưng vẫn giữ nét truyền thống.</div>
+        <div class="product-footer">
+          <div class="product-price">110g/300g/500g/1kg</div>
+          <div class="product-add">+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRICING ─── -->
+<section class="pricing" id="pricing">
+  <div style="text-align:center" class="reveal">
+    <div class="section-tag" style="justify-content:center">Gói đặt hàng</div>
+    <h2 class="section-title">Chọn Gói Phù Hợp</h2>
+    <p class="section-sub" style="margin: 0 auto">Tiết kiệm hơn khi đặt theo gói. Giao hàng định kỳ — không bao giờ hết sữa chua.</p>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="price-card">
+      <div class="price-tier">Gói Sự Kiện - Sữa chua</div>
+      <div class="price-name">Sản phẩm đóng vỉ / hộp hỉ đám cưới</div>
+      <div class="price-desc">Dành cho các sự kiện, đám cưới, đám hỏi.</div>
+      <div class="price-amount">
+        <div class="price-big">Liên hệ tư vấn</div>
+        <div class="price-unit">Tùy theo số người/mâm</div>
+      </div>
+      <ul class="price-features">
+        <li>Đóng gói sang trọng</li>
+        <li>Giao hàng các tỉnh số lượng lớn</li>
+        <li>Hộp cách nhiệt bảo quản lạnh</li>
+      </ul>
+      <button class="price-btn">Đăng ký ngay</button>
+    </div>
+    <div class="price-card featured">
+      <div class="popular-badge">✦ Phổ biến nhất</div>
+      <div class="price-tier">Gói gia đình - Sữa chua - Bánh sữa</div>
+      <div class="price-name">Sản phẩm mua lẻ</div>
+      <div class="price-desc">Lựa chọn của hơn 50% khách hàng thân thiết.</div>
+      <div class="price-amount">
+        <div class="price-big">Liên hệ tư vấn </div>
+        <div class="price-unit">Đặt hằng qua app hoặc sàn TMDT</div>
+      </div>
+      <ul class="price-features">
+        <li>Tự chọn hương vị</li>
+        <li>Ưu tiên mua tại quầy hoặc sàn TMDT</li>
+        <li>Tư vấn dinh dưỡng</li>
+      </ul>
+      <button class="price-btn gold">Đăng ký ngay</button>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Gói đại lý - Sữa chua - Bánh sữa</div>
+      <div class="price-name">Sản phẩm theo giá sỉ</div>
+      <div class="price-desc">Dành cho nhà hàng và đại lý.</div>
+      <div class="price-amount">
+        <div class="price-big">Liên hệ tư vấn</div>
+        <div class="price-unit">số lượng lớn</div>
+      </div>
+      <ul class="price-features">
+        <li>Từ 50 thùng trở lên</li>
+        <li>Giá ưu đãi đặc biệt 15–25%</li>
+        <li>Hóa đơn VAT đầy đủ</li>
+      </ul>
+      <button class="price-btn">Đăng ký ngay</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section class="testimonials">
+  <div style="text-align:center" class="reveal">
+    <div class="section-tag" style="justify-content:center">Khách hàng nói gì</div>
+    <h2 class="section-title">Hàng Nghìn Người<br>Tin Tưởng Chọn</h2>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"Lần đầu ăn sữa chua Chị Vàng, tôi không tin vào vị ngon đến vậy. Béo ngậy, chua thanh đúng chuẩn. Từ đó tôi đặt hàng tuần, không bỏ lần nào."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">L</div>
+        <div>
+          <div class="testi-name">Chị Lan Anh</div>
+          <div class="testi-loc">Cầu Giấy, Hà Nội · Khách 3 năm</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"Tôi mua cho con nhỏ 2 tuổi ăn dặm. Không lo chất phụ gia, sữa tươi thật sự, giá cả hợp lý. Hiếm có thương hiệu nào uy tín như Chị Vàng."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">H</div>
+        <div>
+          <div class="testi-name">Mẹ Hương Giang</div>
+          <div class="testi-loc">Đống Đa, Hà Nội · Khách 2 năm</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"Tôi chạy café và dùng sữa chua Chị Vàng làm đồ uống. Khách khen liên tục, hỏi nguồn gốc. Đây là sản phẩm xứng tầm premium thực sự."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">M</div>
+        <div>
+          <div class="testi-name">Anh Minh Tùng</div>
+          <div class="testi-loc">Tây Hồ, Hà Nội · Đối tác</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<div class="cta-section">
+  <div class="cta-big">
+    Đặt Hàng<br><span class="gold">Hôm Nay</span>
+  </div>
+  <p class="cta-sub">Nhận hũ sữa chua Ba Vì tươi ngon tại nhà — trước 10h, giao trong ngày tại Hà Nội.</p>
+  <div class="cta-actions">
+    <a href="tel:0969000000" class="btn-primary">📞 Gọi ngay: 0969 000 000</a>
+    <a href="#" class="btn-ghost">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M13 0C5.373 0 0 5.373 0 13c0 2.296.6 4.45 1.645 6.315L0 26l6.835-1.624A12.95 12.95 0 0013 26c7.627 0 13-5.373 13-13S20.627 0 13 0z" opacity=".3"/></svg>
+      Zalo: 0969 000 000
+    </a>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo" style="margin-bottom:20px">
+        <div class="nav-logo-mark">C</div>
+        <div class="nav-brand">
+          Chị Vàng Milk
+          <span>Ba Vì · Hà Nội · Est. 2009</span>
+        </div>
+      </div>
+      <p class="footer-desc">Thương hiệu sữa chua Ba Vì cao cấp, được làm thủ công từ sữa bò tươi nguyên chất. Cam kết không chất bảo quản, không hương liệu nhân tạo.</p>
+      <div style="font-size:13px;color:var(--muted);">📍 Trang trại Ba Vì, Hà Nội · ☎️ 0969 000 000</div>
+    </div>
+    <div class="footer-col">
+      <h4>Sản phẩm</h4>
+      <ul class="footer-links">
+        <li><a href="#">Sữa chua nếp cẩm </a></li>
+        <li><a href="#">Sữa chua nha đam</a></li>
+        <li><a href="#">Sữa chua trái cây</a></li>
+        <li><a href="#">Sữa chua phô mai</a></li>
+        <li><a href="#">Sữa chua dê</a></li>
+        <li><a href="#">Sữa chua trân châu</a></li>
+        <li><a href="#">Sữa chua chanh leo</a></li>
+        <li><a href="#">Sữa chua bốn mùa</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Thông tin</h4>
+      <ul class="footer-links">
+        <li><a href="#">Câu chuyện thương hiệu</a></li>
+        <li><a href="#">Quy trình sản xuất</a></li>
+        <li><a href="#">Chứng nhận chất lượng</a></li>
+        <li><a href="#">Tin tức & Blog</a></li>
+        <li><a href="#">Tuyển dụng</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Hỗ trợ</h4>
+      <ul class="footer-links">
+        <li><a href="#">Hướng dẫn đặt hàng</a></li>
+        <li><a href="#">Chính sách giao hàng</a></li>
+        <li><a href="#">Đổi trả & Hoàn tiền</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Liên hệ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2024 Chị Vàng Milk. Bảo lưu mọi quyền.</div>
+    <div class="footer-socials">
+      <a class="social-btn" title="Facebook">f</a>
+      <a class="social-btn" title="Instagram">◈</a>
+      <a class="social-btn" title="Zalo">Z</a>
+      <a class="social-btn" title="TikTok">♪</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animateCursor() {
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+  document.querySelectorAll('a,button,.product-card,.feat-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px'; cursor.style.height = '20px';
+      ring.style.width = '60px'; ring.style.height = '60px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px'; cursor.style.height = '12px';
+      ring.style.width = '36px'; ring.style.height = '36px';
+    });
+  });
+
+  // Marquee
+  const items = [
+    '🐄 Sữa Tươi Ba Vì', '🌿 100% Tự Nhiên', '❄️ Giao Lạnh Chuẩn',
+    '🏆 Chứng Nhận VSATTP', '✨ Không Bảo Quản', '📦 Giao Hàng Trong Ngày',
+    '🏅 Ocop ⭐⭐⭐⭐', '🍶 Lên men tự nhiên', '🦠 Tốt cho tiêu hóa',
+  ];
+  const track = document.getElementById('marqueeTrack');
+  const fullItems = [...items, ...items];
+  fullItems.forEach(text => {
+    const div = document.createElement('div');
+    div.className = 'marquee-item';
+    div.innerHTML = `${text}<span class="dot"></span>`;
+    track.appendChild(div);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav scroll effect
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.style.background = 'rgba(10,7,4,0.95)';
+    } else {
+      nav.style.background = 'rgba(10,7,4,0.75)';
+    }
+  });
+
+  // Product add button
+  document.querySelectorAll('.product-add').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.textContent = '✓';
+      this.style.background = 'var(--gold)';
+      this.style.color = 'var(--black)';
+      setTimeout(() => { this.textContent = '+'; this.style.background = ''; this.style.color = ''; }, 1800);
+    });
+  });
+</script>
+</body>
+</html>
